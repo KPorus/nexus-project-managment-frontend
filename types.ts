@@ -41,7 +41,7 @@ export interface Project {
   description: string;
   status: ProjectStatus;
   isDeleted: boolean;
-  createdBy: string; // User ID
+  createdBy: string;
   createdAt: string;
   updatedAt: string;
 }

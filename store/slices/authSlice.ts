@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AuthState } from "../../types";
 import { login } from "./helper/authThunks";
 import { clearAuthFromStorage } from "./helper/authStorage";
+import type { AuthState } from "../../types";
 
 const initialState: AuthState = {
   user: null,
   token: null,
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: false,
   error: null,
 };
 

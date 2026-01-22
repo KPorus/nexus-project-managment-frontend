@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const { isLoading, error, isAuthenticated } = useAppSelector(
     (state) => state.auth
   );
-
+  console.log(isAuthenticated, isLoading);
   React.useEffect(() => {
     if (isAuthenticated) {
       const from = (location.state as any)?.from?.pathname || "/dashboard";

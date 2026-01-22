@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 // import { logout } from '../store/authSlice';
 // import { RootState } from '../store';
 import { Role } from '../types';
 import { AppDispatch, RootState } from '../store/store';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const Layout: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user } = useAppSelector((state: RootState) => state.auth);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // const handleLogout = async () => {

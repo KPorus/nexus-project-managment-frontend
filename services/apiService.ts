@@ -1,4 +1,4 @@
-import { mapUser } from "../helpers/maper";
+import { mapProject, mapUser } from "../helpers/maper";
 import { KEYS, request } from "../helpers/request";
 import type { User } from "../types";
 
@@ -54,6 +54,25 @@ export const ApiService = {
       const { users: rawUsers = [], total = 0 } = result.data || {};
       const users = Array.isArray(rawUsers) ? rawUsers.map(mapUser) : [];
       return { users, total };
+    },
+  },
+
+  project: {
+    list: async () => {
+      const result = await request("/projects", {
+        method: "GET",
+      });
+      const projects = Array.isArray(result.data)
+        ? result.data
+        : result.data?.projects || [];
+      return Array.isArray(projects) ? projects.map(mapProject) : [];
+    },
+    create: async (name: string, description: string) => {
+      const result = await request("/team/create", {
+        method: "POST",
+        body: JSON.stringify({ name, description }),
+      });
+      return mapProject(result.data?.project || result.data);
     },
   },
 
