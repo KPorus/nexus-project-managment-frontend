@@ -1,5 +1,5 @@
-const BASE_URL="http://localhost:5001/api/v1"
-// const BASE_URL="https://task-monitor-backend-service.onrender.com/api/v1"
+// const BASE_URL="http://localhost:5001/api/v1"
+const BASE_URL="https://nexus-project-managment.vercel.app/api/v1"
 export const KEYS = {
   USERS: "nexus_users",
   TOKEN: "nexus_token",
