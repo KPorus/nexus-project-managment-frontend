@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
-// import { logout } from '../store/authSlice';
+import { logout } from '../store/slices/authSlice';
 // import { RootState } from '../store';
 import { Role } from '../types';
 
-import { useAppSelector } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import type { RootState } from '../store/store';
 
 const Layout: React.FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.auth);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // const handleLogout = async () => {
-  //   await dispatch(logout() as any);
-  //   navigate('/login');
-  // };
+  const handleLogout = async () => {
+    await dispatch(logout());
+  };
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard', icon: '📊', roles: [Role.ADMIN, Role.MANAGER, Role.STAFF] },
@@ -62,13 +61,13 @@ const Layout: React.FC = () => {
             )
           ))}
         </nav>
-        {/* <div className="absolute bottom-0 w-full p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="absolute bottom-0 w-full p-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold">
-              {user?.name.charAt(0)}
+              {user?.email.charAt(0)}
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.name}</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.email}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">{user?.role.toLowerCase()}</p>
             </div>
           </div>
@@ -78,7 +77,7 @@ const Layout: React.FC = () => {
           >
             Sign Out
           </button>
-        </div> */}
+        </div>
       </aside>
 
       {/* Main Content */}

@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { login } from "./helper/authThunks";
-import { clearAuthFromStorage, loadAuthFromStorage } from "./helper/authStorage";
+import {
+  clearAuthFromStorage,
+  loadAuthFromStorage,
+} from "./helper/authStorage";
 import type { AuthState } from "../../types";
 const persisted = loadAuthFromStorage();
 
@@ -12,7 +15,6 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
 };
-
 
 const authSlice = createSlice({
   name: "auth",
@@ -43,23 +45,23 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
-      })
-      // Check Session
-      // .addCase(checkAuthSession.pending, (state) => {
-      //   state.isLoading = true;
-      // })
-      // .addCase(checkAuthSession.fulfilled, (state, action) => {
-      //   state.isLoading = false;
-      //   state.isAuthenticated = true;
-      //   state.user = action.payload.user;
-      //   state.token = action.payload.token;
-      // })
-      // .addCase(checkAuthSession.rejected, (state) => {
-      //   state.isLoading = false;
-      //   state.isAuthenticated = false;
-      //   state.user = null;
-      //   state.token = null;
-      // })
+      });
+    // Check Session
+    // .addCase(checkAuthSession.pending, (state) => {
+    //   state.isLoading = true;
+    // })
+    // .addCase(checkAuthSession.fulfilled, (state, action) => {
+    //   state.isLoading = false;
+    //   state.isAuthenticated = true;
+    //   state.user = action.payload.user;
+    //   state.token = action.payload.token;
+    // })
+    // .addCase(checkAuthSession.rejected, (state) => {
+    //   state.isLoading = false;
+    //   state.isAuthenticated = false;
+    //   state.user = null;
+    //   state.token = null;
+    // })
     // // Accept Invite
     // .addCase(acceptInvite.pending, (state) => {
     //   state.isLoading = true;
@@ -76,5 +78,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearError } = authSlice.actions;
+export const { logout, clearError } = authSlice.actions;
 export default authSlice.reducer;
