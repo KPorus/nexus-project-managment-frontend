@@ -12,19 +12,13 @@ import { useAppSelector } from "./store/hooks";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Users from "./pages/Users";
+import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import { Role } from "./types";
+
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
-  console.log(isAuthenticated);
   const location = useLocation();
-
-  // if (isLoading)
-  //   return (
-  //     <div className="flex h-screen items-center justify-center">
-  //       Loading...
-  //     </div>
-  //   );
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -33,23 +27,29 @@ const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   return children;
 };
 
-
-const RequireRole = ({ children, roles }: { children: React.ReactElement; roles: Role[] }) => {
+const RequireRole = ({
+  children,
+  roles,
+}: {
+  children: React.ReactElement;
+  roles: Role[];
+}) => {
   const { user } = useAppSelector((state: RootState) => state.auth);
 
-  if (!user || !roles.includes(user.role)) {
+  if (!user || !roles.includes(user.role as Role)) {
     return <Navigate to="/dashboard" replace />;
   }
 
   return children;
 };
 
-
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
+        <Route path="/invite" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
         <Route
           path="/"
           element={
@@ -71,6 +71,8 @@ const App: React.FC = () => {
             }
           />
         </Route>
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </HashRouter>
   );

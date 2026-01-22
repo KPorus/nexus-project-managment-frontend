@@ -12,25 +12,16 @@ const Projects: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state: RootState) => state.auth);
   const { projects,loading } = useAppSelector((state: RootState) => state.data);
-  //   const [projects, setProjects] = useState<Project[]>([]);
-//   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [filterStatus, setFilterStatus] = useState<ProjectStatus | "ALL">(
     "ALL"
   );
 
-  // Form State
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<ProjectStatus>(ProjectStatus.ACTIVE);
 
-  //   const fetchProjects = async () => {
-  //     setLoading(true);
-  //     const data = await ApiService.project.list();
-  //     setProjects(data);
-  //     setLoading(false);
-  //   };
 
   useEffect(() => {
     dispatch(fetchAllprojects());
@@ -64,7 +55,6 @@ const Projects: React.FC = () => {
     e.preventDefault();
     try {
       if (editingProject) {
-        // Edit Mode (Admin Only)
         await ApiService.project.edit(
           name,
           description,
@@ -80,13 +70,6 @@ const Projects: React.FC = () => {
       console.error(error);
     }
   };
-
-  //   const handleDelete = async (id: string) => {
-  //     if (window.confirm('Are you sure you want to delete this project?')) {
-  //       await api.deleteProject(id);
-  //       fetchProjects();
-  //     }
-  //   };
 
   const canEdit = user?.role === Role.ADMIN;
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import { logout } from '../store/slices/authSlice';
-// import { RootState } from '../store';
 import { Role } from '../types';
 
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -9,7 +8,6 @@ import type { RootState } from '../store/store';
 
 const Layout: React.FC = () => {
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
   const { user } = useAppSelector((state: RootState) => state.auth);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

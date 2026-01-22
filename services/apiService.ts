@@ -47,6 +47,20 @@ export const ApiService = {
       });
       return result.data;
     },
+    invite: async (email: string, role: Role) => {
+      const result = await request("/invite/create-invite", {
+        method: "POST",
+        body: JSON.stringify({ email, role }),
+      });
+      return result.data?.user || result.data;
+    },
+    acceptInvite: async (token: string, password: string) => {
+      const result = await request("/invite/accept-invite", {
+        method: "POST",
+        body: JSON.stringify({ token, password }),
+      });
+      return result.data || result.data?.user
+    },
   },
 
   project: {

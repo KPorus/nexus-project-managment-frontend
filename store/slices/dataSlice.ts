@@ -2,6 +2,7 @@ import type { DataState } from "../../types";
 import {
   fetchAllprojects,
   fetchAllUsers,
+  inviteUser,
   updateUser,
 } from "./helper/dataThunks";
 import { createSlice } from "@reduxjs/toolkit";
@@ -54,6 +55,9 @@ const dataSlice = createSlice({
       .addCase(updateUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Update failed";
+      })
+      .addCase(inviteUser.fulfilled, (state) => {
+        state.loading = false;
       });
   },
 });

@@ -4,32 +4,31 @@ import { Button } from "../components/Button";
 import { Modal } from "../components/Modal";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import type { RootState } from "../store/store";
-import { fetchAllUsers, updateUser } from "../store/slices/helper/dataThunks";
+import {
+  fetchAllUsers,
+  inviteUser,
+  updateUser,
+} from "../store/slices/helper/dataThunks";
 
 const Users: React.FC = () => {
   const dispatch = useAppDispatch();
   const { users, loading: usersLoading } = useAppSelector(
-    (state: RootState) => state.data // Fix: data slice, not project
+    (state: RootState) => state.data
   );
 
-  // Local state
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteEmail, setInviteEmail] = useState<string>("");
   const [inviteRole, setInviteRole] = useState<Role>(Role.STAFF);
-  const [lastInviteLink, setLastInviteLink] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [limit] = useState(5);
 
-  // Computed from Redux
   const currentUsers = users?.users || [];
   const total = users?.total || 0;
   const totalPages = Math.ceil(total / limit);
 
-  // Load users on mount + page change
   useEffect(() => {
     dispatch(fetchAllUsers({ page, limit }));
   }, [dispatch, page, limit]);
-
 
   const handleUpdate = (
     id: string,
@@ -42,13 +41,27 @@ const Users: React.FC = () => {
         [field]: value,
       })
     );
-    dispatch(fetchAllUsers({ page, limit }))
+    dispatch(fetchAllUsers({ page, limit }));
   };
+  const handleInviteSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inviteEmail.trim()) return;
 
+    try {
+      dispatch(
+        inviteUser({ email: inviteEmail, role: inviteRole })
+      )
+      setInviteEmail("");
+      setIsInviteModalOpen(false);
+      setInviteRole(Role.STAFF);
+      alert("Invitation success")
+    } catch (error: any) {
+      alert(error.message || "Invite failed");
+    }
+  };
 
   const closeInviteModal = () => {
     setIsInviteModalOpen(false);
-    setLastInviteLink(null);
     setInviteEmail("");
     setInviteRole(Role.STAFF);
   };
@@ -193,8 +206,7 @@ const Users: React.FC = () => {
         onClose={closeInviteModal}
         title="Invite New User"
       >
-        {!lastInviteLink ? (
-          <form onSubmit={()=>{}} className="space-y-4">
+          <form onSubmit={handleInviteSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email
@@ -234,35 +246,6 @@ const Users: React.FC = () => {
               <Button type="submit">Send Invite</Button>
             </div>
           </form>
-        ) : (
-          <div className="space-y-4">
-            <div className="p-4 bg-green-50 border border-green-200 rounded-md">
-              <p className="font-medium text-green-800">Invite created!</p>
-              <p className="text-sm text-green-700 mt-1">
-                Copy this link for {inviteEmail}:
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <input
-                readOnly
-                value={lastInviteLink}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-sm"
-              />
-              <Button
-                onClick={async () => {
-                  await navigator.clipboard.writeText(lastInviteLink);
-                  // Visual feedback
-                }}
-                size="sm"
-              >
-                Copy
-              </Button>
-            </div>
-            <div className="flex justify-end">
-              <Button onClick={closeInviteModal}>Done</Button>
-            </div>
-          </div>
-        )}
       </Modal>
     </div>
   );
