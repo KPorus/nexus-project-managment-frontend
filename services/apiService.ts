@@ -1,6 +1,6 @@
 import { mapProject, mapUser } from "../helpers/maper";
 import { KEYS, request } from "../helpers/request";
-import type { ProjectStatus, User } from "../types";
+import type { ProjectStatus, Role, User, UserStatus } from "../types";
 
 export const ApiService = {
   auth: {
@@ -35,6 +35,17 @@ export const ApiService = {
       const { users: rawUsers = [], total = 0 } = result.data || {};
       const users = Array.isArray(rawUsers) ? rawUsers.map(mapUser) : [];
       return { users, total };
+    },
+    update: async (id: string, status?: UserStatus, role?: Role) => {
+      const body: any = {};
+      if (status !== undefined) body.status = status;
+      if (role !== undefined) body.role = role;
+
+      const result = await request(`/auth/update/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+      });
+      return result.data;
     },
   },
 

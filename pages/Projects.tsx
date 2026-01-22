@@ -11,7 +11,7 @@ import { fetchAllprojects } from "../store/slices/helper/dataThunks";
 const Projects: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state: RootState) => state.auth);
-  const { projects,loading } = useAppSelector((state: RootState) => state.project);
+  const { projects,loading } = useAppSelector((state: RootState) => state.data);
   //   const [projects, setProjects] = useState<Project[]>([]);
 //   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);

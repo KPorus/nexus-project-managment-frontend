@@ -11,7 +11,9 @@ import type { RootState } from "./store/store";
 import { useAppSelector } from "./store/hooks";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
+import Users from "./pages/Users";
 import Layout from "./components/Layout";
+import { Role } from "./types";
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
   console.log(isAuthenticated);
@@ -31,6 +33,18 @@ const RequireAuth = ({ children }: { children: React.ReactElement }) => {
   return children;
 };
 
+
+const RequireRole = ({ children, roles }: { children: React.ReactElement; roles: Role[] }) => {
+  const { user } = useAppSelector((state: RootState) => state.auth);
+
+  if (!user || !roles.includes(user.role)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
+};
+
+
 const App: React.FC = () => {
   return (
     <HashRouter>
@@ -47,6 +61,15 @@ const App: React.FC = () => {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="projects" element={<Projects />} />
+
+          <Route
+            path="users"
+            element={
+              <RequireRole roles={[Role.ADMIN]}>
+                <Users />
+              </RequireRole>
+            }
+          />
         </Route>
       </Routes>
     </HashRouter>

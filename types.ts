@@ -65,7 +65,7 @@ export interface AuthState {
 
 export interface DataState {
   projects: Project[];
-  // users?: UsersResponse;
+  users?: UsersResponse;
   loading: boolean;
   error: string | null;
 }
