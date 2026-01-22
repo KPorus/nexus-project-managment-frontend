@@ -1,29 +1,39 @@
-export enum Role {
-  ADMIN = 'ADMIN',
-  MANAGER = 'MANAGER',
-  STAFF = 'STAFF'
-}
+export const Role = {
+  ADMIN: "ADMIN",
+  MANAGER: "MANAGER",
+  STAFF: "STAFF",
+} as const;
+export type Role = (typeof Role)[keyof typeof Role];
 
-export enum UserStatus {
-  ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE'
-}
+// UserStatus
+export const UserStatus = {
+  ACTIVE: "ACTIVE",
+  INACTIVE: "INACTIVE",
+} as const;
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus];
 
-export enum ProjectStatus {
-  ACTIVE = 'ACTIVE',
-  ARCHIVED = 'ARCHIVED',
-  DELETED = 'DELETED'
-}
+// ProjectStatus
+export const ProjectStatus = {
+  ACTIVE: "ACTIVE",
+  ARCHIVED: "ARCHIVED",
+  DELETED: "DELETED",
+} as const;
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus];
 
 export interface User {
   id: string;
-  name: string;
   email: string;
   role: Role;
   status: UserStatus;
   invitedAt?: string;
-  createdAt: string;
+  createdAt?: string;
 }
+
+export interface UsersResponse {
+  total: number;
+  users: User[];
+}
+
 
 export interface Project {
   id: string;
@@ -50,5 +60,12 @@ export interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  error: string | null;
+}
+
+export interface DataState {
+  project?: Project[];
+  users?: UsersResponse;
+  loading: boolean;
   error: string | null;
 }
