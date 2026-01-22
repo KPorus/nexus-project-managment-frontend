@@ -1,6 +1,6 @@
 import { mapProject, mapUser } from "../helpers/maper";
 import { KEYS, request } from "../helpers/request";
-import type { User } from "../types";
+import type { ProjectStatus, User } from "../types";
 
 export const ApiService = {
   auth: {
@@ -68,9 +68,21 @@ export const ApiService = {
       return Array.isArray(projects) ? projects.map(mapProject) : [];
     },
     create: async (name: string, description: string) => {
-      const result = await request("/team/create", {
+      const result = await request("/projects", {
         method: "POST",
         body: JSON.stringify({ name, description }),
+      });
+      return mapProject(result.data?.project || result.data);
+    },
+    edit: async (
+      name: string,
+      description: string,
+      status: ProjectStatus,
+      id: string
+    ) => {
+      const result = await request(`/projects/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ name, description, status }),
       });
       return mapProject(result.data?.project || result.data);
     },

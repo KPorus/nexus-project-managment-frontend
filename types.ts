@@ -64,8 +64,8 @@ export interface AuthState {
 }
 
 export interface DataState {
-  project?: Project[];
-  users?: UsersResponse;
+  projects: Project[];
+  // users?: UsersResponse;
   loading: boolean;
   error: string | null;
 }

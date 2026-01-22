@@ -1,10 +1,12 @@
+import type { DataState } from '../../types';
+import { fetchAllprojects } from './helper/dataThunks';
 import { createSlice } from "@reduxjs/toolkit";
-import { DataState } from "../../types";
-import { fetchAllUsers } from "./helper/dataThunks";
+
+
 
 const initialState: DataState = {
-  project: [],
-  users: undefined,
+  projects: [],
+  // users: undefined,
   loading: false,
   error: null,
 };
@@ -14,9 +16,9 @@ const dataSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
-      state.users = action.payload;
-    });
+    builder.addCase(fetchAllprojects.fulfilled, (state, action) => {
+      state.projects = action.payload;
+    })
   },
 });
 

@@ -1,8 +1,14 @@
-import { configureStore, type ThunkDispatch, type UnknownAction,  } from "@reduxjs/toolkit";
-import authReducer from './slices/authSlice';
+import {
+  configureStore,
+  type ThunkDispatch,
+  type UnknownAction,
+} from "@reduxjs/toolkit";
+import authReducer from "./slices/authSlice";
+import dataReducer from "./slices/dataSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    project: dataReducer,
   },
 });
 
