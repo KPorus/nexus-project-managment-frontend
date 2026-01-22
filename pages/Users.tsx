@@ -48,13 +48,15 @@ const Users: React.FC = () => {
     if (!inviteEmail.trim()) return;
 
     try {
-      dispatch(
+      const result = await dispatch(
         inviteUser({ email: inviteEmail, role: inviteRole })
       )
+      if(result){
+        alert("Invitation success")
+      }
       setInviteEmail("");
       setIsInviteModalOpen(false);
       setInviteRole(Role.STAFF);
-      alert("Invitation success")
     } catch (error: any) {
       alert(error.message || "Invite failed");
     }
