@@ -1,4 +1,4 @@
-import { configureStore, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
+import { configureStore, type ThunkDispatch, type UnknownAction,  } from "@reduxjs/toolkit";
 import authReducer from './slices/authSlice';
 export const store = configureStore({
   reducer: {

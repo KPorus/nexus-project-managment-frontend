@@ -1,5 +1,5 @@
-import { Project, User } from "../types";
-import { getId } from "./getId";
+import type { Project, User } from "../types";
+
 
 export const mapProject = (t: any): Project => {
   if (!t) return null as any;

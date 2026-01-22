@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Role } from '../types';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useAppSelector } from '../store/hooks';
-import { RootState } from '../store/store';
+
 import { ApiService } from '../services/apiService';
+import type { RootState } from '../store/store';
 
 const Dashboard: React.FC = () => {
   const { user } = useAppSelector((state: RootState) => state.auth);

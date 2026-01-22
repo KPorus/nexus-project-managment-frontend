@@ -10,11 +10,11 @@ import Login from "./pages/Login";
 import type { RootState } from "./store/store";
 import { useAppSelector } from "./store/hooks";
 import Dashboard from "./pages/Dashboard";
+import Projects from "./pages/Projects";
 import Layout from "./components/Layout";
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
-  const { isAuthenticated, isLoading } = useAppSelector(
-    (state: RootState) => state.auth
-  );
+  const { isAuthenticated } = useAppSelector((state: RootState) => state.auth);
+  console.log(isAuthenticated);
   const location = useLocation();
 
   // if (isLoading)
@@ -46,6 +46,7 @@ const App: React.FC = () => {
         >
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="projects" element={<Projects />} />
         </Route>
       </Routes>
     </HashRouter>

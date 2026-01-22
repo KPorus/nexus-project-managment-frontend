@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { clearError } from "../store/slices/authSlice";
-import { Layout, ArrowRight, Lock, Mail, User } from "lucide-react";
+import { Layout} from "lucide-react";
 
 import { Button } from "../components/Button";
 
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const { isLoading, error, isAuthenticated } = useAppSelector(
     (state) => state.auth
   );
-  console.log(isAuthenticated, isLoading);
+  // console.log(isAuthenticated, isLoading);
   React.useEffect(() => {
     if (isAuthenticated) {
       const from = (location.state as any)?.from?.pathname || "/dashboard";

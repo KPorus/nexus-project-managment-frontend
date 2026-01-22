@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiService } from "../../../services/apiService";
-import { User } from "../../../types";
+import type { User } from "../../../types";
+
 
 
 // Async Thunks

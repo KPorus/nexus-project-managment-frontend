@@ -1,7 +1,8 @@
-import { User } from "../../../types";
+import type { User } from "../../../types";
 
-const USER_KEY = "taskflow_user";
-const TOKEN_KEY = "taskflow_token";
+
+const USER_KEY = "nexus_user";
+const TOKEN_KEY = "nexus_token";
 
 export const loadAuthFromStorage = () => {
   const userRaw = localStorage.getItem(USER_KEY);
