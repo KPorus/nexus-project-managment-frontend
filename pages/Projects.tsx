@@ -164,39 +164,25 @@ const Projects: React.FC = () => {
                     {project.createdBy === user?.id ? "You" : "Another User"}
                   </div>
 
-                  {canEdit && (
-                    <div className="flex space-x-2 mt-auto">
-                      {isDeleted ? (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="disabled"
-                          onClick={() => handleOpenModal(project)}
-                        >
-                          Edit
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleOpenModal(project)}
-                        >
-                          Edit
-                        </Button>
-                      )}
+                  {canEdit && !project.isDeleted && (
+                    <div className="flex space-x-2 mt-auto pt-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleOpenModal(project)}
+                        className="flex-1"
+                      >
+                        Edit
+                      </Button>
 
-                      {!isDeleted && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() =>
-                            handleDelete(project.id || (project as any)._id)
-                          }
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
-                        >
-                          Delete
-                        </Button>
-                      )}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDelete(project.id)} // Clean ID
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+                      >
+                        Delete
+                      </Button>
                     </div>
                   )}
                 </div>
