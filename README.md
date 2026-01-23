@@ -14,7 +14,6 @@ The primary goal of Nexus is to provide a secure and scalable foundation for int
 - **Session Security:** Handle JWT authentication with automatic silent token refreshing to provide a seamless user experience without compromising security.
 
 ## Development Commands
-
 Install dependencies:
 
 ```bash
@@ -38,7 +37,7 @@ Preview the production build locally:
 ```bash
 pnpm preview
 ```
-
+Also Remember to change the backend URL in `request.ts` with you backend otherwise there will be cross issues
 ## ✨ Key Features
 
 ### 🔐 Authentication & Security
