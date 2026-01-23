@@ -1,8 +1,9 @@
-import type { DataState } from "../../types";
+import { ProjectStatus, type DataState } from "../../types";
 import {
   fetchAllprojects,
   fetchAllUsers,
   inviteUser,
+  softDelete,
   updateUser,
 } from "./helper/dataThunks";
 import { createSlice } from "@reduxjs/toolkit";
@@ -58,7 +59,25 @@ const dataSlice = createSlice({
       })
       .addCase(inviteUser.fulfilled, (state) => {
         state.loading = false;
-      });
+      })
+      .addCase(softDelete.pending,(state)=>{
+        state.loading=true
+      })
+      .addCase(softDelete.fulfilled,(state,action)=>{
+        const projectId = action.payload.id || action.payload?._id
+        const index = state.projects.findIndex((p)=>p.id === projectId)
+        // console.log("from reducer", projectId, index);
+        if(index !==-1){
+          state.projects[index].isDeleted = true
+          state.projects[index].status = ProjectStatus.DELETED
+        }
+        // console.log("from soft delete builder",state.projects[index]);
+        state.loading=false
+      })
+      .addCase(softDelete.rejected,(state)=>{
+        state.loading=false
+        state.error = "Delete failed"
+      })
   },
 });
 

@@ -46,3 +46,10 @@ export const acceptInvite = createAsyncThunk(
     return await ApiService.user.acceptInvite(token, password);
   }
 );
+
+export const softDelete = createAsyncThunk(
+  "data/soft_delete",
+  async (id: string) => {
+    return ApiService.project.soft_delete(id);
+  }
+);

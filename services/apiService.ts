@@ -59,7 +59,7 @@ export const ApiService = {
         method: "POST",
         body: JSON.stringify({ token, password }),
       });
-      return result.data || result.data?.user
+      return result.data || result.data?.user;
     },
   },
 
@@ -91,6 +91,12 @@ export const ApiService = {
         body: JSON.stringify({ name, description, status }),
       });
       return mapProject(result.data?.project || result.data);
+    },
+    soft_delete: async (id: string) => {
+      const result = await request(`/projects/soft_delete/${id}`, {
+        method: "PATCH",
+      });
+      return result.data
     },
   },
 };

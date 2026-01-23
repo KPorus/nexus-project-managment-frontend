@@ -87,7 +87,7 @@ const Layout: React.FC = () => {
             </svg>
           </button>
           <h1 className="text-xl font-bold text-gray-800 dark:text-white">Nexus</h1>
-          <div className="w-6" /> {/* Spacer for centering */}
+          <div className="w-6" />
         </header>
 
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-900 p-6">
